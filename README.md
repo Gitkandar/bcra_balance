@@ -2,17 +2,17 @@
 
 Proceso de extracción y tratamiento de datos de la hoja semanal del balance del Banco Central de la República Argentina (BCRA).
 
-------------------------------------------------------------------------
+
 
 ## Uso
 
 Este código permite la extracción de las series de tiempo de las variables o cuentas del balance semanal del BCRA desde el 07 de enero de 1998 a la fecha bajo el programa [R](https://www.r-project.org/).
 
-En su interior, hay un encabezado titulado "Datos a modificar". En su interior, el valor de la variable `ult` debe modificarse a los fines de incluir o excluir el último año que se desea descargar. Por ejemplo, `ult <- 23` va a descargar y ordenar la base desde el 07 de enero de 1998 a el último dato disponible del año 2023.
+En su interior, hay un encabezado titulado "Datos a modificar". El valor de la variable `ult` debe modificarse a los fines de incluir o excluir el último año que se desea descargar. Por ejemplo, `ult <- 23` va a descargar y ordenar la base desde el 07 de enero de 1998 a el último dato disponible del año 2023.
 
 El resultado es el de un *dataframe* ordenado (*tidy*) con variables seleccionadas sobre las cuales operar. Dado que el énfasis está puesto en el diseño del código de extracción y tratamiento, debe esperarse que el *output* del mismo, que se guarda en el archivo `balance_bcra.csv` no se encuentre necesariamente actualizado.
 
-------------------------------------------------------------------------
+
 
 ## Variables seleccionadas
 
@@ -34,7 +34,7 @@ Las variables que muestra el código son las siguientes:
 -   **reservas_dolares**: reservas del BCRA denominadas en dólares. NOTA: Se utiliza el tipo de cambio que provee el BCRA para realizar la conversión.
 -   **ratio_reservas_base**: el ratio de las reservas contra la base monetaria del BCRA.
 
-------------------------------------------------------------------------
+
 
 ## Estado del Proyecto
 
@@ -43,7 +43,7 @@ A septiembre de 2023, el proyecto se encuentra activo. Eso significa que:
 -   Se provee mantenimiento, sobre todo en lo que refiere a los cambios de año, que generalmente incluyen alguna modificación en el formato o tabulado de los datos de origen.
 -   Se busca ampliar la base de variables a filtrar.
 
-------------------------------------------------------------------------
+
 
 ## Créditos
 
@@ -61,7 +61,7 @@ A septiembre de 2023, el proyecto se encuentra activo. Eso significa que:
 -   Luciano Jara Musuruana. [LinkedIn](https://www.linkedin.com/in/luciano-jara-musuruana/). [ORCID](https://orcid.org/0000-0002-0203-180X)
 -   Gastón Navarro. [LinkedIn](https://www.linkedin.com/in/gast%C3%B3n-navarro-aa58661b3/).
 
-------------------------------------------------------------------------
+
 
 ## Contacto
 

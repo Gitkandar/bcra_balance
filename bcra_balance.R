@@ -228,8 +228,14 @@ formato <- function(x) {
 ## Formateo #### 
 semanal[, -which(names(semanal) == "anio")] <- lapply(semanal[, -which(names(semanal) == "anio")], formato)
 
-## Guardado ###
+## Depurado ####
+semanal <- semanal[!is.na(semanal$fecha), ]
+
+## Guardado ####
 write.csv(semanal, "balance_bcra.csv", row.names = FALSE)
+write.csv(semanal, "C:/Users/PC/Dropbox/Observatorio Diario/balance_bcra.csv", row.names = FALSE)
+
+
 
 
 

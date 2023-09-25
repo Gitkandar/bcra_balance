@@ -20,21 +20,45 @@ El resultado es el de un *dataframe* ordenado (*tidy*) con variables seleccionad
 
 Las variables que se seleccionan mediante el código son las siguientes:
 
--   **fecha**: la variable fecha se utiliza como id en el *dataframe*. Generalmente corresponde al día viernes de cada semana
--   **dia**: el número del día correspondiente a fecha.
--   **mes**: el número de mes correspondiente a fecha.
--   **anio**: el número de año correspondiente a fecha.
--   **tipo_cambio**: el tipo de cambio oficial que utiliza el BCRA para hacer las conversiones de sus activos y pasivos.
--   **base_monetaria**: la base monetaria del BCRA.
--   **adelantos_transitorios**: son los adelantos transitorios del BCRA al gobierno nacional.
--   **letras_intrasferibles**: monto total de letras instransferibles en manos del central por el origen que sea (decreto, ley, etc).
--   **reservas_pesos**: agregado monetario de las reservas del BCRA denominadas en pesos.
--   **titulos_bcra**: títulos emitidos por el BCRA
--   **credito_sist_financiero**: créditos al sistema financiero del país.
--   **activo_bcra**: activo del balance del BCRA.
--   **pasivo_bcra**: pasivo del balance del BCRA.
--   **reservas_dolares**: reservas del BCRA denominadas en dólares. NOTA: Se utiliza el tipo de cambio que provee el BCRA para realizar la conversión.
--   **ratio_reservas_base**: el ratio de las reservas contra la base monetaria del BCRA.
+-   **fecha** [NIVEL 0]: la variable fecha se utiliza como id en el *dataframe*. Generalmente corresponde al día viernes de cada semana.
+
+-   **dia** [NIVEL 0]: el número del día correspondiente a fecha.
+
+-   **mes** [NIVEL 0]: el número de mes correspondiente a fecha.
+
+-   **anio** [NIVEL 0]: el número de año correspondiente a fecha.
+
+-   **tipo_cambio** [NIVEL 0]: el tipo de cambio oficial que utiliza el BCRA para hacer las conversiones de sus activos y pasivos.
+
+-   **activo_bcra** [NIVEL 0]: activo del balance del BCRA.
+
+-   **reservas_pesos** [NIVEL 1] [activo_bcra]: agregado monetario de las reservas del BCRA denominadas en pesos.
+
+-   **divisas_pesos** [NIVEL 2] [reservas_pesos]: divisas disponibles en las reservas del BCRA denominadas en pesos.
+
+-   **convenio_multilateral** [NIVEL 2] [reservas_pesos]: convenios multilaterales de crédito por parte del BCRA, denominado en pesos.
+
+-   **titulos_publicos** [NIVEL 1] [activo_bcra]: títulos públicos bajo ley nacional y extranjera a favor del BCRA.
+
+-   **adelantos_transitorios** [NIVEL 1] [activo_bcra]: son los adelantos transitorios del BCRA al gobierno nacional.
+
+-   **credito_sist_financiero** [NIVEL 1] [activo_bcra]: créditos al sistema financiero del país.
+
+-   **pasivo_bcra** [NIVEL 0]: pasivo del balance del BCRA.
+
+-   **base_monetaria** [NIVEL 1] [pasivo_bcra]: la base monetaria del BCRA.
+
+-   **circulacion_monetaria** [NIVEL 2] [base_monetaria]: billetes, monedas y cheques cancelatorios en circulación.
+
+-   **oblig_organismos_internales** [NIVEL 1] [pasivo_bcra]: obligaciones del BCRA establecidas con organismos internacionales.
+
+-   **titulos_emitidos_bcra** [NIVEL 1] [pasivo_bcra]: títulos emitidos por el BCRA.
+
+-   **letras_intrasferibles** [NIVEL 2] [titulos_emitidos_bcra]: monto total de letras instransferibles en manos del central por el origen que sea (decreto, ley, etc).
+
+-   **reservas_dolares** [CALCULADO]: reservas del BCRA denominadas en dólares. NOTA: Se utiliza el tipo de cambio que provee el BCRA para realizar la conversión.
+
+-   **ratio_reservas_base** [CALCULADO]: el ratio de las reservas contra la base monetaria del BCRA.
 
 ## Estado del Proyecto
 

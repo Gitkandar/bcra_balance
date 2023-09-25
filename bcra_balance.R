@@ -96,12 +96,48 @@ bcra <- function(base, col) {
 ## * tipo_cambio ####
 TdC <- filter(datos, Grupo == "TIPO DE CAMBIO")
 
+## * activo_bcra ####
+# Total Activo
+TA <- filter(datos, Grupo == "TOTAL DEL ACTIVO")
+
+## * reservas_pesos ####
+# Reservas internacionales en pesos ($)
+RIP <-filter(datos, Grupo %in% c("RESERVAS INTERNACIONALES","RESERVAS DE LIBRE DISPONIBILIDAD",
+                                 "ORO DIVISAS COLOCACIONES A PLAZO Y OTROS"))
+
+## * divisas_pesos ####
+DIV <- filter(datos, Grupo == "DIVISAS")
+
+## * convenio_multilateral ####
+CONV <- filter(datos, Grupo == "CONVENIOS MULTILATERALES DE CREDITO")
+
+## * titulos_publicos ####
+TPUBL <- filter(datos, Grupo == "TITULOS PUBLICOS")
+
+## * adelantos_transitorios ####
+AT <-filter(datos, Grupo == "ADELANTOS TRANSITORIOS AL GOBIERNO NACIONAL")
+
+## * credito_sist_financiero ####
+# Créditos al sistema financiero del país
+C <-filter(datos, Grupo == "CREDITOS AL SISTEMA FINANCIERO DEL PAIS")
+
+## * pasivo_bcra ####
+# Total Pasivo
+TP <- filter(datos, Grupo == "TOTAL DEL PASIVO")
+
 ## * base_monetaria ####
 # Base monetaria en millones de pesos
 BM <-filter(datos, Grupo == "BASE MONETARIA")
 
-## * adelantos_transitorios ####
-AT <-filter(datos, Grupo == "ADELANTOS TRANSITORIOS AL GOBIERNO NACIONAL")
+## * circulacion_monetaria ####
+CIRC <-filter(datos, Grupo == "CIRCULACION MONETARIA")
+
+## * oblig_organismos_internales ####
+ORGINT <-filter(datos, Grupo == "OBLIGACIONES CON ORGANISMOS INTERNACIONALES")
+
+## * titulos_emitidos_bcra ####
+# Títulos emitidos por el BCRA 
+TIT <-filter(datos, Grupo == "TITULOS EMITIDOS POR EL BCRA")
 
 ## * letras_intransferibles ####
 # Letras intransferibles del tesoro nacional. Se genera el siguiente criterio:
@@ -114,41 +150,30 @@ LI <- datos %>%
   summarise(Monto = sum(Monto)) %>% 
   mutate(Grupo = 0)
 
-## * reservas_pesos ####
-# Reservas internacionales en pesos ($)
-RIP <-filter(datos, Grupo %in% c("RESERVAS INTERNACIONALES","RESERVAS DE LIBRE DISPONIBILIDAD",
-                                 "ORO DIVISAS COLOCACIONES A PLAZO Y OTROS"))
-## * titulos_bcra ####
-# Títulos emitidos por el BCRA 
-TIT <-filter(datos, Grupo == "TITULOS EMITIDOS POR EL BCRA")
-
-## * credito_sist_financiero ####
-# Créditos al sistema financiero del país
-C <-filter(datos, Grupo == "CREDITOS AL SISTEMA FINANCIERO DEL PAIS")
-
-## * activo_bcra ####
-# Total Activo
-TA <- filter(datos, Grupo == "TOTAL DEL ACTIVO")
-
-## * pasivo_bcra ####
-# Total Pasivo
-TP <- filter(datos, Grupo == "TOTAL DEL PASIVO")
-
 
 # Arreglo bases semanales ------------------------------------------------------
 
 ## Identificación de bases y variables ####
 # A cada nombre de base (en bases), le corresponde un nombre de variable (en colum)
-bases <- c("TdC", "BM", "AT", "LI", "RIP", "TIT", "C", "TA", "TP")
-colum <- c("tipo_cambio", 
-           "base_monetaria", 
-           "adelantos_transitorios",
-           "letras_intransferibles",
-           "reservas_pesos",
-           "titulos_bcra",
-           "credito_sist_financiero",
+bases <- c("TdC",                                                               # Tipo de cambio 
+           "TA", "RIP", "DIV", "CONV", "TPUBL", "AT", "C",                      # Activo BCRA
+           "TP", "BM", "CIRC", "ORGINT", "TIT", "LI")
+
+colum <- c("tipo_cambio",
            "activo_bcra",
-           "pasivo_bcra")
+           "reservas_pesos",
+           "divisas_pesos",
+           "convenio_multilateral",
+           "titulos_publicos",
+           "adelantos_transitorios",
+           "credito_sist_financiero",
+           "pasivo_bcra",
+           "base_monetaria",
+           "circulacion_monetaria",
+           "oblig_organismos_internales",
+           "titulos_emitidos_bcra",
+           "letras_intransferibles")
+
 tracker <- as.data.frame(cbind(bases,colum))
 
 ## Loop para variables ####

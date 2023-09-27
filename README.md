@@ -25,7 +25,7 @@ Se ha seleccionado un conjunto de variables de la hoja de balance del BCRA. No t
 -   **N2 nombre_variable**: tercer nivel de agregación. El parámetro *nombre_variable* remite a la variable inmediatamente más agregada a la que esta pertenece. En este caso, del nivel 1.
 -   **CALC**: variable calculada. Es decir, no pre-existente en la base de datos de origen.
 
-Las variables que se seleccionan mediante el código son las siguientes. Todas se encuentran expresadas en millones de pesos ($ millones):
+Las variables que se seleccionan mediante el código son las siguientes. Todas se encuentran expresadas en millones de pesos (\$ millones):
 
 -   **fecha** [*N0*]: la variable fecha se utiliza como id en el *dataframe*. Generalmente corresponde al día viernes de cada semana.
 -   **dia** [*N0*]: el número del día correspondiente a fecha.
@@ -67,6 +67,7 @@ A septiembre de 2023, el proyecto se encuentra activo. Eso significa que se prov
 
 -   Luciano Jara Musuruana. [LinkedIn](https://www.linkedin.com/in/luciano-jara-musuruana/). [ORCID](https://orcid.org/0000-0002-0203-180X)
 -   Patricio Almeida Gentille. [LinkedIn](https://www.linkedin.com/in/patricio-almeida-gentile-5bbb7414a/). [ORCID](https://orcid.org/0000-0002-0308-9165)
+-   Gastón Navarro [LinkedIn](https://www.linkedin.com/in/gast%C3%B3n-navarro-aa58661b3/)
 
 ## Contacto
 

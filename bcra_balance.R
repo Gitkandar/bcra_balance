@@ -109,10 +109,10 @@ RIP <-filter(datos, Grupo %in% c("RESERVAS INTERNACIONALES","RESERVAS DE LIBRE D
 DIV <- filter(datos, Grupo == "DIVISAS")
 
 ## * convenio_multilateral ####
-CONV <- filter(datos, Grupo == "CONVENIOS MULTILATERALES DE CREDITO")
+CONV <- filter(datos, Grupo %in% c("CONVENIOS MULTILATERALES DE CREDITO", "CONVENIOS MULTILATERALES DE CRÉDITO"))
 
 ## * titulos_publicos ####
-TPUBL <- filter(datos, Grupo == "TITULOS PUBLICOS")
+TPUBL <- filter(datos, Grupo %in% c("TITULOS PUBLICOS", "TÍTULOS PÚBLICOS"))
 
 ## * adelantos_transitorios ####
 AT <-filter(datos, Grupo == "ADELANTOS TRANSITORIOS AL GOBIERNO NACIONAL")
@@ -130,7 +130,7 @@ TP <- filter(datos, Grupo == "TOTAL DEL PASIVO")
 BM <-filter(datos, Grupo == "BASE MONETARIA")
 
 ## * circulacion_monetaria ####
-CIRC <-filter(datos, Grupo == "CIRCULACION MONETARIA")
+CIRC <-filter(datos, Grupo %in% c("CIRCULACION MONETARIA", "CIRCULACIÓN MONETARIA"))
 
 ## * oblig_organismos_internales ####
 ORGINT <-filter(datos, Grupo == "OBLIGACIONES CON ORGANISMOS INTERNACIONALES")
@@ -222,9 +222,9 @@ rm(nombre)
 
 # Re-escala a millones ---------------------------------------------------------
 # La base original está en miles de $
-# Re-escala desde base_monetaria [6] a pasivo_bcra [13]
+# Re-escala desde activo_bcra [6] a letras_intransferibles [18] a millones de pesos.
 semanal <- semanal %>%
-  mutate_at(vars(names(semanal)[6:13]), ~ round(. / 1000, digits = 3)) %>% 
+  mutate_at(vars(names(semanal)[6:18]), ~ round(. / 1000, digits = 3)) %>% 
   mutate(tipo_cambio = round(tipo_cambio, digits = 3))
 
 
@@ -259,9 +259,4 @@ semanal <- semanal[!is.na(semanal$fecha), ]
 ## Guardado ####
 write.csv(semanal, "balance_bcra.csv", row.names = FALSE)
 write.csv(semanal, "C:/Users/PC/Dropbox/Observatorio Diario/balance_bcra.csv", row.names = FALSE)
-
-
-
-
-
 

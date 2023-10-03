@@ -68,8 +68,9 @@ for (j in hojas) {
 rm(serie, hojas)
 
 
-# Orden de variables --------------------------------------------------------------
-datos <- datos %>% 
+# Orden y depuración --------------------------------------------------------------
+datos <- datos %>%
+  filter(!is.na(Grupo)) %>%
   select(fecha, Grupo, Monto) 
 
 
@@ -112,7 +113,9 @@ DIV <- filter(datos, Grupo == "DIVISAS")
 CONV <- filter(datos, Grupo %in% c("CONVENIOS MULTILATERALES DE CREDITO", "CONVENIOS MULTILATERALES DE CRÉDITO"))
 
 ## * titulos_publicos ####
-TPUBL <- filter(datos, Grupo %in% c("TITULOS PUBLICOS", "TÍTULOS PÚBLICOS"))
+TPUBL <- filter(datos, Grupo %in% c("TITULOS PUBLICOS"))
+### NOTA: TITULOS PUBLICOS en mayúsculas y sin acento toma el rubro más agregado del balance.
+###       Si se toman con acento (Ej: Títulos) capta rubros desagregados.
 
 ## * adelantos_transitorios ####
 AT <-filter(datos, Grupo == "ADELANTOS TRANSITORIOS AL GOBIERNO NACIONAL")
@@ -131,6 +134,7 @@ BM <-filter(datos, Grupo == "BASE MONETARIA")
 
 ## * circulacion_monetaria ####
 CIRC <-filter(datos, Grupo %in% c("CIRCULACION MONETARIA", "CIRCULACIÓN MONETARIA"))
+CIRC$Monto <- as.numeric(CIRC$Monto)
 
 ## * oblig_organismos_internales ####
 ORGINT <-filter(datos, Grupo == "OBLIGACIONES CON ORGANISMOS INTERNACIONALES")
@@ -239,24 +243,11 @@ semanal$reservas_dolares <- semanal$reservas_pesos/semanal$tipo_cambio
 semanal$ratio_reservas_base <-semanal$reservas_pesos/semanal$base_monetaria
 
 
-# Formato y guardado de la base -----------------------------------------------------------
-
-## Función de formato ####
-formato <- function(x) {
-  if (is.numeric(x)) {
-    return(format(x, big.mark = ","))
-  } else {
-    return(x)
-  }
-}
-
-## Formateo #### 
-semanal[, -which(names(semanal) == "anio")] <- lapply(semanal[, -which(names(semanal) == "anio")], formato)
-
+# Depurado y guardado ----------------------------------------------------------
 ## Depurado ####
 semanal <- semanal[!is.na(semanal$fecha), ]
 
 ## Guardado ####
 write.csv(semanal, "balance_bcra.csv", row.names = FALSE)
-write.csv(semanal, "C:/Users/PC/Dropbox/Observatorio Diario/balance_bcra.csv", row.names = FALSE)
+write.csv(semanal, "C:/Users/PC/Dropbox/Observatorio Diario/oes_monetario/balance_bcra.csv", row.names = FALSE)
 

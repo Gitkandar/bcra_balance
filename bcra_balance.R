@@ -1,9 +1,10 @@
-# Paquetes ---------------------------------------------------------------------
+# Librerías --------------------------------------------------------------------
 library(readxl)
 library(tidyverse)
 library(lubridate)
 library(dplyr)
 library(tidyr)
+library(writexl)
 
 
 # Datos a modificar ------------------------------------------------------------
@@ -223,6 +224,11 @@ for (nombre in bases) {
 }
 rm(nombre)
 
+## Condiciona numérico ####
+for (col_name in colum) {
+  semanal[[col_name]] <- as.numeric(semanal[[col_name]])
+}
+
 
 # Re-escala a millones ---------------------------------------------------------
 # La base original está en miles de $
@@ -248,6 +254,5 @@ semanal$ratio_reservas_base <-semanal$reservas_pesos/semanal$base_monetaria
 semanal <- semanal[!is.na(semanal$fecha), ]
 
 ## Guardado ####
-write.csv(semanal, "balance_bcra.csv", row.names = FALSE)
-write.csv(semanal, "C:/Users/PC/Dropbox/Observatorio Diario/oes_monetario/balance_bcra.csv", row.names = FALSE)
+writexl::write_xlsx(semanal, "C:/Users/PC/Dropbox/Observatorio Diario/oes_monetario/balance_bcra.xlsx")
 

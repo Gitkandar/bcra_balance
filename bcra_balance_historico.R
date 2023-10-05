@@ -230,6 +230,20 @@ for (col_name in colum) {
 }
 
 
+# Imputación de valores faltantes ----------------------------------------------
+## NOTA: Dentro de case_when() se imputan los valores de la circulación monetaria
+## que, para las fechas detalladas, no están agregadas en la base de origen.
+semanal <- semanal %>% 
+  mutate(circulacion_monetaria = case_when(
+    fecha == "2010-11-23" ~ 113010501,
+    fecha == "2010-11-30" ~ 114167496,
+    fecha == "2010-12-07" ~ 116031432,
+    fecha == "2010-12-15" ~ 119473494,
+    fecha == "2010-12-23" ~ 123461690,
+    fecha == "2010-12-31" ~ 124534620,
+    TRUE ~ circulacion_monetaria))  # Mantener el valor existente si no se cumplen las condiciones anteriores
+
+
 # Re-escala a millones ---------------------------------------------------------
 # La base original está en miles de $
 # Re-escala desde activo_bcra [6] a letras_intransferibles [18] a millones de pesos.

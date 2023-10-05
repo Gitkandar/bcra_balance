@@ -71,8 +71,8 @@ rm(serie, hojas)
 
 # Orden y depuración --------------------------------------------------------------
 datos <- datos %>%
-  filter(!is.na(Grupo)) %>%
-  select(fecha, Grupo, Monto) 
+  filter(!is.na(Grupo)) %>%                        # Limpia los valores vacíos de "Grupo"
+  select(fecha, Grupo, Monto)
 
 
 # Funciones --------------------------------------------------------------------
@@ -131,10 +131,10 @@ TP <- filter(datos, Grupo == "TOTAL DEL PASIVO")
 
 ## * base_monetaria ####
 # Base monetaria en millones de pesos
-BM <-filter(datos, Grupo == "BASE MONETARIA")
+BM <- filter(datos, Grupo == "BASE MONETARIA")
 
 ## * circulacion_monetaria ####
-CIRC <-filter(datos, Grupo %in% c("CIRCULACION MONETARIA", "CIRCULACIÓN MONETARIA"))
+CIRC <- filter(datos, Grupo %in% c("CIRCULACION MONETARIA", "CIRCULACIÓN MONETARIA"))
 CIRC$Monto <- as.numeric(CIRC$Monto)
 
 ## * oblig_organismos_internales ####
@@ -230,6 +230,20 @@ for (col_name in colum) {
 }
 
 
+# Imputación de valores faltantes ----------------------------------------------
+## NOTA: Dentro de case_when() se imputan los valores de la circulación monetaria
+## que, para las fechas detalladas, no están agregadas en la base de origen.
+semanal <- semanal %>% 
+  mutate(circulacion_monetaria = case_when(
+    fecha == "2010-11-23" ~ 113010501,
+    fecha == "2010-11-30" ~ 114167496,
+    fecha == "2010-12-07" ~ 116031432,
+    fecha == "2010-12-15" ~ 119473494,
+    fecha == "2010-12-23" ~ 123461690,
+    fecha == "2010-12-31" ~ 124534620,
+    TRUE ~ circulacion_monetaria))  # Mantener el valor existente si no se cumplen las condiciones anteriores
+
+
 # Re-escala a millones ---------------------------------------------------------
 # La base original está en miles de $
 # Re-escala desde activo_bcra [6] a letras_intransferibles [18] a millones de pesos.
@@ -254,5 +268,6 @@ semanal$ratio_reservas_base <-semanal$reservas_pesos/semanal$base_monetaria
 semanal <- semanal[!is.na(semanal$fecha), ]
 
 ## Guardado ####
-writexl::write_xlsx(semanal, "C:/Users/PC/Dropbox/Observatorio Diario/oes_monetario/balance_bcra.xlsx")
+writexl::write_xlsx(semanal, "C:/Users/PC/Dropbox/Observatorio Diario/oes_monetario/balance_bcra.xlsx",
+                    sheetName = balance_bcra)
 

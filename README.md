@@ -16,7 +16,6 @@ El resultado es el de un *dataframe* ordenado (*tidy*) con variables seleccionad
 -   **bcra_balance_historico.R**: Código de extracción de las hojas de balance del BCRA. Recorre todos los años que se presentan. Recorre desde 1998 hasta 2022 inclusive. Guarda la información extraída en `historico22.RData`.
 -   **bcra_balance_express.R**: Código de extracción de las hojas de balance del BCRA para 2023. Utiliza como insumo `historico22.RData`.
 -   **SerieBCRA.xls**: Archivo excel directamente descargado del portal del BCRA. Esta acción se ejecuta desde el código R aquí presentado.
--   **balance_bcra.csv**: Output de `bcra_balance.R` o de `bcra_balance_express.R`.
 -   **historico22.RData**: Output de `bcra_balance_historico`
 
 ## Variables seleccionadas

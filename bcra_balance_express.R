@@ -249,4 +249,5 @@ semanal <- rbind(historico, semanal)
 rm(historico)
 
 ## Guardado ####
-writexl::write_xlsx(semanal, "C:/Users/PC/Dropbox/Observatorio Diario/oes_monetario/balance_bcra.xlsx")
+writexl::write_xlsx(semanal, "C:/Users/PC/Dropbox/Observatorio Diario/oes_monetario/balance_bcra.xlsx",
+                    sheetName = balance_bcra)

@@ -268,6 +268,5 @@ semanal$ratio_reservas_base <-semanal$reservas_pesos/semanal$base_monetaria
 semanal <- semanal[!is.na(semanal$fecha), ]
 
 ## Guardado ####
-writexl::write_xlsx(semanal, "C:/Users/PC/Dropbox/Observatorio Diario/oes_monetario/balance_bcra.xlsx",
-                    sheetName = balance_bcra)
-
+writexl::write_xlsx(list(balance_bcra = semanal), 
+                    "C:/Users/PC/Dropbox/Observatorio Diario/oes_monetario/balance_bcra.xlsx")

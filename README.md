@@ -27,7 +27,7 @@ Se ha seleccionado un conjunto de variables de la hoja de balance del BCRA. No t
 -   **N2 nombre_variable**: tercer nivel de agregación. El parámetro *nombre_variable* remite a la variable inmediatamente más agregada a la que esta pertenece. En este caso, del nivel 1.
 -   **CALC**: variable calculada. Es decir, no pre-existente en la base de datos de origen.
 
-Las variables que se seleccionan mediante el código son las siguientes. Todas se encuentran expresadas en millones de pesos (\$ millones):
+Las variables que se seleccionan mediante el código son las siguientes. Todas se encuentran expresadas en miles de pesos (\$ miles), tal como se presenta originalmente:
 
 -   **fecha** [*N0*]: la variable fecha se utiliza como id en el *dataframe*. Generalmente corresponde al día viernes de cada semana.
 -   **dia** [*N0*]: el número del día correspondiente a fecha.

@@ -7,6 +7,7 @@ library(tidyr)
 library(writexl)
 
 
+
 # Datos a modificar ------------------------------------------------------------
 # En esta sección figura el último año en el que se extraen datos
 # Afecta a la creación del vector hojas. Luego se borra.
@@ -14,7 +15,13 @@ ult <- 2023
 
 # Preparación previa -----------------------------------------------------------
 # Indica el link que lleva a la base de datos a utilizar
-link <- "http://www.bcra.gov.ar/Pdfs/PublicacionesEstadisticas/Serieanual.xls"
+link <- "https://www.bcra.gov.ar/Pdfs/PublicacionesEstadisticas/Serieanual.xls"
+# Configuración de seguridad para descarga
+options(
+  "download.file.method" = "libcurl",
+  "libcurl" = "--tlsv1.2",
+  "httr_oob_default" = TRUE
+)
 # Indica donde descargar el archivo
 download.file(link, destfile = "SerieBCRA.xls", mode = "wb")
 # Crea un objeto con los nombres de cada hoja del archivo que se descarga, para luego leerlas
@@ -221,11 +228,11 @@ for (col_name in colum) {
 }
 
 
-# Re-escala a millones ---------------------------------------------------------
+# Redondeo ---------------------------------------------------------------------
 # La base original está en miles de $
 # Re-escala desde activo_bcra [6] a letras_intransferibles [18] a millones de pesos.
 semanal <- semanal %>%
-  mutate_at(vars(names(semanal)[6:18]), ~ round(. / 1000, digits = 3)) %>% 
+  mutate_at(vars(names(semanal)[6:18]), ~ round(. , digits = 3)) %>% 
   mutate(tipo_cambio = round(tipo_cambio, digits = 3))
 
 
@@ -251,3 +258,5 @@ rm(historico)
 ## Guardado ####
 writexl::write_xlsx(list(balance_bcra = semanal), 
                     "C:/Users/PC/Dropbox/Observatorio Diario/oes_monetario/balance_bcra.xlsx")
+
+
